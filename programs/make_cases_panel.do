@@ -2,7 +2,7 @@ clear all
 capture log close
 set more off
 
-log using "$git/programs/make_panel_data.log", replace
+log using "$git/programs/make_cases_panel.log", replace
 
 timer clear
 timer on 1
@@ -12,7 +12,7 @@ cd "$git"
 local startdate 21aug2020	/* specify start date */
 local enddate 14sept2020	/* specify end date */
 
-local raw "$git/raw csv data"
+local raw "$git/raw case count data"
 
 /* 
 This file opens all of the state's case count data files for a specified
