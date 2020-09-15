@@ -33,3 +33,26 @@ twoway line new_cases_per_100k date, by(county)
 twoway line cum_cases_per_100k date, by(county)
 
 twoway line pct_positive_7_days date, by(county)
+
+/* Line graphs - Centre only */
+
+twoway line cum_cases date if county == "CENTRE", ///
+	ylab(0(200)1400, angle(0)) ///
+	xlab(, angle(45)) ///
+	title("Centre County" "Cumulative Cases, 8/21-Present")
+	
+twoway bar incident_cases date if county == "CENTRE", ///
+	ylab(, angle(0)) ///
+	xlab(, angle(45)) ///
+	title("Centre County" "Incident Cases, 8/21-Present")
+	
+twoway line avg_7_days date if county == "CENTRE", ///
+	ylab(, angle(0)) ///
+	xlab(, angle(45)) ///
+	title("Centre County" "7-day average, daily cases per 100,000 pop")
+	
+twoway line pct_positive_7_days date if county == "CENTRE", ///
+	ylab(, angle(0)) ///
+	xlab(, angle(45)) ///
+	title("Centre County" "% of tests positive, last 7 days")
+	
