@@ -8,7 +8,7 @@
  
  I have also converted the original data (from the PDFs) to CSV files. These can be found in: [Raw Case Count Data](https://github.com/amandakreider/Pennsylvania-COVID-19-Data/tree/master/raw%20case%20count%20data) and [Raw Deaths Data](https://github.com/amandakreider/Pennsylvania-COVID-19-Data/tree/master/raw%20deaths%20data).
  
- So far, I have collected data from August 21, 2020 - September 14, 2020. I used the [Wayback Machine](https://archive.org/web/) to collect older PDFs of the data.
+ So far, I have collected data on cases as far back as August 21, 2020, and on deaths as far back as September 13, 2020. I used the [Wayback Machine](https://archive.org/web/) to collect older PDFs of the data.
 
 ## Code and Built Data
 
