@@ -67,9 +67,24 @@ compress
 
 sort county date
 
+/* Label vars and add new vars */
+
+encode county, gen(county_n)
+tsset county_n date
+
+rename deaths deaths_cum
+label var deaths_cum "Cumulative Deaths"
+
+gen new_deaths = deaths_cum - L1.deaths_cum
+label var new_deaths "Daily Deaths"
+
+gen new_deaths_per_100k = new_deaths/(county_pop/100000)
+label var new_deaths_per_100k "New deaths per 100,000 pop"
+
 /* Save as panel */
 
-order date county deaths county_pop rate
+order date county county_n new_deaths new_deaths_per_100k ///
+	deaths_cum rate county_pop
 compress
 
 save "built/deaths_panel_`startdate'_`enddate'.dta", replace
