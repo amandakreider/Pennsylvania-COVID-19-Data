@@ -39,6 +39,7 @@ twoway line pct_positive_7_days date, by(county)
 twoway bar new_deaths date, by(county) ylab(0(2)10)
 twoway bar new_deaths_per_100k date, by(county)
 twoway line rate date, by(county)
+twoway line new_deaths_7_days date, by(county) 
 
 /* Line graphs - Centre only */
 
