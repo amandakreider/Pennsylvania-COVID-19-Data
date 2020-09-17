@@ -28,11 +28,17 @@ twoway ///
 	
 /* Line graphs with all counties (not pretty) */
 
+* Cases
+
 twoway line new_cases_per_100k date, by(county)
-
 twoway line cum_cases_per_100k date, by(county)
-
 twoway line pct_positive_7_days date, by(county)
+
+* Deaths
+
+twoway bar new_deaths date, by(county) ylab(0(2)10)
+twoway bar new_deaths_per_100k date, by(county)
+twoway line rate date, by(county)
 
 /* Line graphs - Centre only */
 
