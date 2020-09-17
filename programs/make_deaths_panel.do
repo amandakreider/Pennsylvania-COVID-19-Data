@@ -9,7 +9,7 @@ timer on 1
 
 cd "$git"
 
-local startdate 13sept2020	/* specify start date */
+local startdate 21aug2020	/* specify start date */
 local enddate 16sept2020	/* specify end date */
 
 local raw "raw deaths data"
@@ -31,7 +31,14 @@ foreach date of local dates {
     
 	di "`date'"
 	
-	import delimited "`raw'/deaths_by_county_of_residence_`date'.csv", varnames(1) clear
+	import delimited "`raw'/deaths_by_county_of_residence_`date'.csv", ///
+		varnames(1) clear
+	
+	drop if county == "County"
+	
+	cap rename countypopulation countypopulation1
+	cap rename deathrateper100000residents rate2
+	cap rename rate rate2
 	
 	gen datestr = "`date'"
 	gen date = date(datestr, "MDY")
@@ -41,16 +48,19 @@ foreach date of local dates {
 	replace county = upper(county)
 	rename ofdeaths deaths
 	rename countypopulation1 county_pop
-	rename rate2 rate
 	
-	label var county_pop "County Population 2018"
-	label var rate "Death rate per 100,000 residents"
+	cap replace deaths = subinstr(deaths,",","",.)
+	cap destring deaths, replace
 	
 	cap replace county_pop = subinstr(county_pop,",","",.)
 	cap destring county_pop, replace
 	
-	cap replace deaths = subinstr(deaths,",","",.)
-	cap destring deaths, replace
+	cap gen rate2 = round(deaths/(county_pop/100000),0.1)
+	rename rate2 rate
+	cap destring rate, replace
+	
+	label var county_pop "County Population 2018"
+	label var rate "Death rate per 100,000 residents"
 	
 	save "temp/deaths_`date'.dta", replace
 }
@@ -60,6 +70,7 @@ clear
 /* Append datasets */
 
 foreach date of local dates {
+	di "`date'"
 	append using "temp/deaths_`date'.dta"
 }
 
