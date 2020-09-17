@@ -80,10 +80,10 @@ label var cum_cases "Cumulative Cases"
 gen incident_cases = cum_cases - L1.cum_cases
 label var incident_cases "Incident Cases"
 
-gen cum_cases_per_100k = cum_cases/(county_pop/100000)
+gen cum_cases_per_100k = cum_cases/(county_pop_2018/100000)
 label var cum_cases_per_100k "Cumulative Cases per 100,000 pop"
 
-gen new_cases_per_100k = incident_cases/(county_pop/100000)
+gen new_cases_per_100k = incident_cases/(county_pop_2018/100000)
 label var new_cases_per_100k "Incident Cases per 100,000 pop"
 
 gen avg_7_days = (new_cases_per_100k + L1.new_cases_per_100k + ///
@@ -113,10 +113,21 @@ drop daily_negative_tests incidence_7_days negatives_7_days
 
 order date county county_n region incident_cases ///
 	new_cases_per_100k avg_7_days pct_positive_7_days ///
-	cum_cases confirmed probable cum_cases_per_100k persons_negative_pcr county_pop
+	cum_cases confirmed probable cum_cases_per_100k ///
+	persons_negative_pcr county_pop_2018
 compress
 
 save "built/case_count_panel_`startdate'_`enddate'.dta", replace
+
+/* Merge in deaths data */
+
+merge 1:1 date county county_n county_pop_2018 using ///
+	"built/deaths_panel_`startdate'_`enddate'.dta", nogen
+
+sort county date
+compress
+
+save "built/full_panel_`startdate'_`enddate'.dta", replace
 
 timer off 1
 timer list
