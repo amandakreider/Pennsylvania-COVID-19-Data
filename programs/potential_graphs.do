@@ -44,7 +44,7 @@ twoway line new_deaths_7_days date, by(county)
 /* Line graphs - Centre only */
 
 twoway line cum_cases date if county == "CENTRE", ///
-	ylab(0(200)1400, angle(0)) ///
+	ylab(0(200)1600, angle(0)) ///
 	xlab(, angle(45)) ///
 	title("Centre County" "Cumulative Cases, 8/21-Present")
 	
