@@ -45,21 +45,24 @@ twoway line new_deaths_7_days date, by(county)
 
 twoway line cum_cases date if county == "CENTRE", ///
 	ylab(0(200)1600, angle(0)) ///
-	xlab(, angle(45)) ///
+	xlab(22147(7)22175, angle(45)) ///
 	title("Centre County" "Cumulative Cases, 8/21-Present")
+graph export "graphs/centre_cum_cases.pdf", as(pdf) name("Graph") replace
 	
-twoway bar incident_cases date if county == "CENTRE", ///
+twoway (bar new_cases_per_100k date) (line avg_7_days date) ///
+	if county == "CENTRE", ///
 	ylab(, angle(0)) ///
-	xlab(, angle(45)) ///
-	title("Centre County" "Incident Cases, 8/21-Present")
+	xlab(22147(7)22175, angle(45)) ///
+	legend(lab(1 "Incident cases per 100,000 pop") lab(2 "7-Day Avg.")) ///
+	title("Centre County, 8/21-Present")
 	
 twoway line avg_7_days date if county == "CENTRE", ///
 	ylab(, angle(0)) ///
-	xlab(, angle(45)) ///
+	xlab(22147(7)22175, angle(45)) ///
 	title("Centre County" "7-day average, daily cases per 100,000 pop")
 	
 twoway line pct_positive_7_days date if county == "CENTRE", ///
 	ylab(, angle(0)) ///
-	xlab(, angle(45)) ///
+	xlab(22147(7)22175, angle(45)) ///
 	title("Centre County" "% of tests positive, last 7 days")
 	
