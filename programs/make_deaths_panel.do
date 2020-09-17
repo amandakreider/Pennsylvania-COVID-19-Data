@@ -10,7 +10,7 @@ timer on 1
 cd "$git"
 
 local startdate 21aug2020	/* specify start date */
-local enddate 16sept2020	/* specify end date */
+local enddate 17sept2020	/* specify end date */
 
 local raw "raw deaths data"
 local pop "raw pop data"
